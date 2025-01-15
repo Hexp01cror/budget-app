@@ -69,4 +69,4 @@ window.addEventListener('DOMContentLoaded', () => {
   transactions = storedTransactions;
   balance = parseFloat(localStorage.getItem('balance')) || 0;
   updateUI();
-});
+});  
