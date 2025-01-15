@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>budget management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <h1>budget management</h1>
+    <form id="transaction-form">
+      <input type="text" id="description" placeholder="content" required>
+      <input type="number" id="amount" placeholder="amount (positive:income, negative:outgoing)" required>
+      <button type="submit">add</button>
+    </form>
+
+    <div id="balance-container">
+      <h2>balance: <span id="balance">₩0</span></h2>
+    </div>
+
+    <div id="history">
+      <h3>breakdown</h3>
+      <ul id="transaction-list"></ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
