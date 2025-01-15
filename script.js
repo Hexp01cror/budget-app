@@ -61,6 +61,6 @@ function saveToLocalStorage() {
 window.addEventListener('DOMContentLoaded', () => {
   const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
   transactions = storedTransactions;
-  balance = parseFloat(localStorage.getItem('balance')) || 0;
+  balance = transactions.reduce((acc, t) => acc + t.amount, 0);
   updateUI();
 });
