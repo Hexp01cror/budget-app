@@ -55,11 +55,12 @@ function deleteTransaction(id) {
 
 function saveToLocalStorage() {
   localStorage.setItem('transactions', JSON.stringify(transactions));
+  localStorage.setItem('balance', balance);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
   transactions = storedTransactions;
-  balance = transactions.reduce((acc, t) => acc + t.amount, 0);
+  balance = parseFloat(localStorage.getItem('balance')) || 0;
   updateUI();
 });
