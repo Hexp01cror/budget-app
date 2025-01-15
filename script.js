@@ -36,6 +36,12 @@ function updateUI() {
   transactions.forEach((t) => {
     const li = document.createElement('li');
     li.textContent = `${t.description}: ₩${t.amount.toLocaleString()}`;
+    
+    if (t.amount >= 0) {
+      li.classList.add('positive');
+    } else {
+      li.classList.add('negative');
+    }
 
     const deleteBtn = document.createElement('button');
     deleteBtn.textContent = 'X';
@@ -61,6 +67,6 @@ function saveToLocalStorage() {
 window.addEventListener('DOMContentLoaded', () => {
   const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
   transactions = storedTransactions;
-  balance = transactions.reduce((acc, t) => acc + t.amount, 0);
+  balance = parseFloat(localStorage.getItem('balance')) || 0;
   updateUI();
 });
