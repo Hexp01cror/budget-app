@@ -1,4 +1,3 @@
-
 let transactions = [];
 let balance = 0;
 
@@ -15,16 +14,16 @@ form.addEventListener('submit', (e) => {
   const amount = parseFloat(amountInput.value);
 
   if (!description || isNaN(amount)) {
-    alert('Please enter a valid content.');
+    alert('Please enter valid content.');
     return;
   }
 
   const transaction = { id: Date.now(), description, amount };
   transactions.push(transaction);
-
   balance += amount;
 
   updateUI();
+  saveToLocalStorage();
 
   descriptionInput.value = '';
   amountInput.value = '';
@@ -33,29 +32,6 @@ form.addEventListener('submit', (e) => {
 function updateUI() {
   balanceEl.textContent = `₩${balance.toLocaleString()}`;
 
-  transactionListEl.innerHTML = '';
-  transactions.forEach((t) => {
-    const li = document.createElement('li');
-    li.textContent = `${t.description}: ₩${t.amount.toLocaleString()}`;
-    transactionListEl.appendChild(li);
-  });
-}
-
-
-window.addEventListener('DOMContentLoaded', () => {
-  const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
-  transactions = storedTransactions;
-  balance = transactions.reduce((acc, t) => acc + t.amount, 0);
-  updateUI();
-});
-
-function updateUI() {
-
-  localStorage.setItem('transactions', JSON.stringify(transactions));
-}
-
-
-function updateUI() {
   transactionListEl.innerHTML = '';
   transactions.forEach((t) => {
     const li = document.createElement('li');
@@ -73,5 +49,17 @@ function updateUI() {
 function deleteTransaction(id) {
   transactions = transactions.filter(t => t.id !== id);
   balance = transactions.reduce((acc, t) => acc + t.amount, 0);
-updateUI();
+  updateUI();
+  saveToLocalStorage();
 }
+
+function saveToLocalStorage() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const storedTransactions = JSON.parse(localStorage.getItem('transactions')) || [];
+  transactions = storedTransactions;
+  balance = transactions.reduce((acc, t) => acc + t.amount, 0);
+  updateUI();
+});
